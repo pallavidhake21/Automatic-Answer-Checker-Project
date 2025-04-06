@@ -1,0 +1,70 @@
+<!DOCTYPE html> {% load static %}
+<html lang="en">
+
+<head>
+    <title>Automatic Answer cheker</title>
+    <link rel="stylesheet" href="{% static 'css/test.css'%}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    </script>
+</head>
+
+<body>
+    <div>
+        {% for i in exam %}
+        <table>
+            <tr>
+                <td class="text-primary">{{i.id}} ) {{i.Question}} ?</td>
+            </tr>
+            <tr>
+                <td><input type="radio" class="rb" name="{{i.id}} " id="Option1" value="{{i.Option1}}">A) {{i.Option1}}</td>
+            </tr>
+            <tr>
+                <td><input type="radio" class="rb" name="{{i.id}} " id="Option2" value="{{i.Option2}}">B) {{i.Option2}}</td>
+            </tr>
+            <tr>
+                <td><input type="radio" class="rb" name="{{i.id}} " id="Option3" value="{{i.Option3}}">C) {{i.Option3}}</td>
+            </tr>
+            <tr>
+                <td><input type="radio" class="rb" name="{{i.id}} " id="Option4" value="{{i.Option4}}">D) {{i.Option4}}</td>
+            </tr>
+
+            <tr>
+                <td><label id="corans" class="rb" style="display:none ; color:red;"><b>Correct Answer : {{i.Corrans}}</b></label></td>
+            </tr>
+
+        </table>
+        <hr> {% endfor %}
+        <center> <input type="submit" value="submit Answer" id="b1" onclick="getanswers()" /></center>
+        </form>
+        <br>
+        <b id="UserAnswers"></b>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $("#b1").click(function() {
+                $(".rb").show();
+                $(".rb").attr("disabled", true);
+
+
+            });
+        });
+
+
+        function getanswers() {
+            document.getElementById("UserAnswers").innerHTML = "";
+            var e = document.getElementsByTagName("input");
+            for (i = 0; i <= e.length; i++) {
+                if (e[i].type == "radio") {
+                    if (e[i].checked) {
+                        document.getElementById("UserAnswers").innerHTML += "Q" + e[i].name + ")  The Answers You Are Selected Is : " + e[i].value + "<br>";
+
+                    }
+                }
+            }
+        }
+    </script><br>
+    <center><button class="btn"><a href="/logout/">Submit test</button></a></center>
+</body>
+
+</html>
